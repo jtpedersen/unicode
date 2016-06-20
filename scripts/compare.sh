@@ -1,18 +1,18 @@
 #!/bin/bash
-set -x
+#set -x
 
-DECODER=$1
-ENCODER=$2
-TESTDATA=$3
+ENCODER=$1
+TESTDATA=$2
+REFERENCE=$3
 TMP=encoded.dat
-ROUNDTRIP=roundtrip.dat
-${DECODER} < ${TESTDATA} > ${TMP}
-${ENCODER} < ${TMP} > ${ROUNDTRIP}
+${ENCODER} < ${TESTDATA} > ${TMP}
 
-DIFF=$(diff $TESTDATA $ROUNDTRIP)
+DIFF=$(diff $TMP $REFERENCE)
 
 if [ "$DIFF" != "" ] 
 then
+    cat $TMP
+    cat $REFERENCE
     echo $DIFF
     exit -1
 fi

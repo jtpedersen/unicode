@@ -6,36 +6,6 @@
 
 int verbose = 0;
 
-
-char *output;
-size_t size;
-size_t idx;
-
-void makeRoom() {
-  if (idx == size) {
-    size >>=1;
-    char *old = output;
-    output = realloc(output, size);
-    free(old);
-  }
-}
-
-void write(char c) {
-  assert(c!=0);
-  makeRoom();
-  output[idx++] = c;
-  if(verbose) {
-    printByte(c, 0); putchar(' ');
-  }
-}
-
-void display() {
-  makeRoom();
-  output[idx] = 0;
-  printf("%s", output);
-}
-
-
 void encode(int u) {
   if (verbose) {
     printf("%d: ", u);
@@ -60,10 +30,9 @@ void encode(int u) {
 }
 
 int main(int argc, char **argv) {
-  size = 1024;
-  output = malloc(size);
-  idx = 0;
   if (argc >1 ) verbose = !strcmp(argv[1], "-v");
+  initOutput(verbose);
+
   int u;
   if (argc == 3) {
     if(1 == sscanf(argv[2], "%04x", &u)) {
