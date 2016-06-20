@@ -4,22 +4,6 @@
 
 #include "common.h"
 
-int blocks(int c) {
-  int cnt = 0;
-  int pos = 7;
-  while( (c>>(pos--)) & 1) cnt++;
-  return cnt ? cnt : 1;
-}
-
-int calcMask(const int bytes) {
-  if (bytes == 1) return 0xFF;
-  if (bytes == 2) return 0x1F;
-  if (bytes == 3) return 0x0F;
-  if (bytes == 4) return 0x07;
-  assert(bytes == 1);
-  return 0;
-}
-
 int main(int argc, char **argv) {
   int verbose = 0;
   if (argc == 2) verbose = !strcmp(argv[1], "-v");
