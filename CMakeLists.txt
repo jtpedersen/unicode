@@ -13,27 +13,29 @@ add_library(
 
 ADD_EXECUTABLE(
   codepointToUtf8
-
   src/codepointToUtf8.c
   )
 
 target_link_libraries(codepointToUtf8 common)
 
-
 ADD_EXECUTABLE(
   utf8ToCodepoint
-
   src/utf8ToCodepoint.c
   )
 target_link_libraries(utf8ToCodepoint common)
 
 ADD_EXECUTABLE(
   utf8ToPuny
-
   src/utf8ToPuny.c
   )
-
 target_link_libraries(utf8ToPuny common)
+
+ADD_EXECUTABLE(
+  punyToUtf8
+  src/punyToUtf8.c
+  )
+target_link_libraries(punyToUtf8 common)
+
 
 enable_testing()
 
@@ -59,4 +61,12 @@ add_test(
   ./bin/utf8ToPuny
   ../res/puny-in.txt
   ../res/puny-out.txt
+  )
+
+add_test(
+  FromPuny
+  ./bin/punyToUtf8
+  "-v"
+  "hest"
+  "hest"
   )
